@@ -96,19 +96,39 @@ class Formulario {
         return $result;
     }
 
-    public function deleteById($id_cita, $mascota_id) {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id_cita = ? AND id_mascota = ?";
+    public function deleteById($id_cita) {
+        // Verificación de la conexión a la base de datos
+        if ($this->conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $this->conn->connect_error);
+        }
+    
+        // Prepara la consulta SQL para eliminar por id_cita
+        $query = "DELETE FROM " . $this->table_name . " WHERE id_cita = ?";
         $stmt = $this->conn->prepare($query);
+    
         if ($stmt === false) {
             die("Error en la preparación del statement: " . $this->conn->error);
         }
     
-        $stmt->bind_param("ii", $id_cita, $mascota_id);
-        $result = $stmt->execute();
+        // Vincula el parámetro id_cita
+        $stmt->bind_param("i", $id_cita);
     
+        // Ejecuta la consulta
+        $stmt->execute();
+    
+        // Verifica si la consulta fue exitosa
+        $affected_rows = $stmt->affected_rows > 0;
+    
+        // Cierra el statement
         $stmt->close();
-        return $result;
+    
+        // Retorna el resultado de la eliminación
+        return $affected_rows;
     }
+    
+    
+
+    
 
     public function getById($id_cita, $id_mascota) {
         $query = "SELECT * FROM " . $this->table_name . " WHERE id_cita = ? AND id_mascota = ?";

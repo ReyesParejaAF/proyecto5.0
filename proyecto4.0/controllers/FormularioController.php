@@ -71,7 +71,7 @@ class FormularioController {
         
         // Verifica el id_mascota
         $id_mascota = $formulario->getMascotaIdByUserId($user_id);
-        echo "ID Mascota: " . $id_mascota; // Esto debería mostrar el id_mascota para depuración
+        // Esto debería mostrar el id_mascota para depuración
     
         $citas = $formulario->getAllByMascota($id_mascota);
     
@@ -97,9 +97,9 @@ class FormularioController {
         if ($id_cita) {
             $formulario = new Formulario();
             if ($formulario->deleteById($id_cita, $user_id)) {
-                echo "Cita borrada exitosamente.";
+                echo "<script>alert('Cita borrada exitosamente.'); window.location.href='index.php?controller=FormularioController&action=list';</script>";
             } else {
-                echo "Error al borrar la cita.";
+                echo "<script>alert('Error al borrar la cita.'); window.location.href='index.php?controller=FormularioController&action=list';</script>";
             }
         }
     }

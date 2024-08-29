@@ -8,10 +8,7 @@
     <?php include 'partials/header.php'?>
 </head>
 <body>
-    <div class="top-buttons">
-        
-        <a href="index.php?controller=FormularioController&action=create" class="btn btn-primary">volver</a>
-    </div>
+    
     <div class="citas-lista">
         <h3>Mis Citas</h3>
         <table>
@@ -27,8 +24,8 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            di
-        <tbody>
+            
+            <tbody>
                 <?php foreach ($citas as $cita): ?>
                     <tr>
                         <td><?php echo $cita['nombre_propietario']; ?></td>
@@ -42,6 +39,9 @@
                             <a href="index.php?controller=FormularioController&action=edit&id=<?php echo $cita['id_cita']; ?>">Editar</a>
                             <a href="index.php?controller=FormularioController&action=delete&id=<?php echo $cita['id_cita']; ?>" onclick="return confirm('¿Estás seguro de que deseas borrar esta cita?');">Borrar</a>
                         </td>
+                        <div class="top-buttons">
+                            <a href="index.php?controller=FormularioController&action=list" class="btn btn-primary">volver</a>
+                        </div>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
